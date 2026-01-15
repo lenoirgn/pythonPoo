@@ -6,7 +6,7 @@
 :date: janvier 2026
 :Fournit :
 """
-
+from math import sqrt
 from complexes import Complexe
 
 def est_bornee(c: Complexe) -> bool:
@@ -21,7 +21,15 @@ def est_bornee(c: Complexe) -> bool:
     $$$ est_bornee(Complexe(1.0, 0.0))
     False
     """
-    ...
+    z=Complexe(0.,0.)
+    for i in range(50):
+        if not sqrt(Complexe.carre_module(z))<2:
+            return False
+        z_complexe=Complexe(Complexe.carre_module(z),0)
+        z = z_complexe + c
+    return True
+       
+        
 
 class Mandelbrot:
     """Attributs et méthodes permettant de définir une tabulation
