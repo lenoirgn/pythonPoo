@@ -22,7 +22,8 @@ class Complexe:
         $$$ z.imaginaire
         -0.5
         """
-        ...
+        self.reelle=partie_reelle
+        self.imaginaire=partie_imaginaire
 
     def __repr__(self) -> str:
         """Renvoie une représentation de `self`.
@@ -31,7 +32,7 @@ class Complexe:
         $$$ repr(z)
         'Complexe(2.0, -0.5)'
         """
-        ...
+        return f"Complexe({self.reelle}, {self.imaginaire})"
 
     def __eq__(self, other) -> bool:
         """Renvoie vrai si et seulement si other est une instance d'un nombre
