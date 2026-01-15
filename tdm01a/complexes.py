@@ -50,7 +50,8 @@ class Complexe:
         $$$ Complexe(2.0, -0.5) == Complexe(-1.0, 1.0)
         False
         """
-        ...
+        return (isinstance(self,Complexe) and isinstance(other, Complexe)) and self.reelle==other.reelle and self.imaginaire==other.imaginaire
+            
 
     def __add__(self, z):
         """Renvoie self + other
@@ -58,8 +59,7 @@ class Complexe:
         $$$ Complexe(2.0, -0.5) + Complexe(-1.0, 1.0)
         Complexe(1.0, 0.5)
         """
-        ...
-
+        return Complexe(self.reelle+z.reelle,self.imaginaire+z.imaginaire)
     def __sub__(self, z):
         """Renvoie self - other
         Précondition : aucune
