@@ -64,14 +64,20 @@ class Mandelbrot:
         $$$ ensemble1.pas_imaginaire
         1.0
         """
-        ...
+        
+        self.bas_gauche = bas_gauche
+        self.haut_droite = haut_droite
+        self.nb_subd_reelle = nb_subd_reelle
+        self.nb_subd_imaginaire = nb_subd_imaginaire
+        self.pas_reel=(self.haut_droite.reelle-self.bas_gauche.reelle)/(nb_subd_reelle-1)
+        self.pas_imaginaire=(self.haut_droite.imaginaire-self.bas_gauche.imaginaire)/(nb_subd_imaginaire-1)
 
     def liste_appartenance(self) -> list[list[bool]]:
         """Renvoie une grille de booléens permettant de connaitre l'appartenance
         à l'ensemble de Mandelbrot des nombres tabulés dans `self`.
         Postcondition : pour tout couple d'indices valides (n, p)
          self.liste_appartenance()[p][n] est vrai ssi est_bornee(c) est vrai
-         avec c = self.bas_gauche + n * self.pas_reel + p * self.pas_imaginaire
+         avec c = self.bas_gauche + n * self.pas_reel + i * p * self.pas_imaginaire
         Précondition : aucune
         $$$ ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 4, 3)
         $$$ ensemble1.liste_appartenance()
@@ -79,37 +85,48 @@ class Mandelbrot:
          [False, True, True, False], \
          [False, False, True, False]]
         """
-        ...
+        grille=[]
+        for p in range(self.nb_subd_imaginaire):
+            ligne=[]
+            for n in range(self.nb_subd_reelle):
+                c=Complexe(self.bas_gauche.reelle+(n*self.pas_reel),self.bas_gauche.imaginaire+(p*self.pas_imaginaire))
+                print(c)
+                res=est_bornee(c)
+                ligne.append(res)
+            grille.append(ligne)
+        return grille
+ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 4, 3)           
 
-    def translation(self, nb_pas_reelle: int, nb_pas_imaginaire: int):
-        """Cree une instance de Mandelbrot qui possède les mêmes nombres
-        de subdivision que `self`, mais dont les attributs bas_gauche
-        et haut_droite sont translatés de z avec
-        z = nb_pas_reelle * self.pas_reelle + i * nb_pas_imaginaire * self.pas_imaginaire
-        Précondition : aucune
-        $$$ ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 7, 5)
-        $$$ trans = ensemble1.translation(1, -2)
-        $$$ trans.bas_gauche
-        Complexe(-1.5, -2.0)
-        $$$ trans.haut_droite
-        Complexe(1.5, 0.0)
-        """
-        ...
 
-    def zoom(self, coefficient: int, nb_pas_reelle: int, nb_pas_imaginaire: int):
-        """Crée une instance de Mandelbrot qui possède les mêmes nombres de
-        subdivisions que `self`, mais centrée sur
-        z = self.bas_gauche + nb_pas_reelle * self.pas_reelle
-                            + i * nb_pas_imaginaire * self.pas_imaginaire
-        et avec les attribut pas_reelle et pas_imaginaires égaux à ceux de
-        self divisés par coefficient.
-        Précondition : coeffcient > 0
-        $$$ ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 7, 5)
-        $$$ agrand = ensemble1.zoom(2, 4, 2) # on zoome autour de 0 + i*0
-        $$$ agrand.bas_gauche
-        Complexe(-0.75, -0.5)
-        $$$ agrand.haut_droite
-        Complexe(0.75, 0.5)
-        """
-        ...
-
+#      def translation(self, nb_pas_reelle: int, nb_pas_imaginaire: int):
+#         """Cree une instance de Mandelbrot qui possède les mêmes nombres
+#         de subdivision que `self`, mais dont les attributs bas_gauche
+#         et haut_droite sont translatés de z avec
+#         z = nb_pas_reelle * self.pas_reelle + i * nb_pas_imaginaire * self.pas_imaginaire
+#         Précondition : aucune
+#         $$$ ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 7, 5)
+#         $$$ trans = ensemble1.translation(1, -2)
+#         $$$ trans.bas_gauche
+#         Complexe(-1.5, -2.0)
+#         $$$ trans.haut_droite
+#         Complexe(1.5, 0.0)
+#         """
+#          ...
+# 
+#     def zoom(self, coefficient: int, nb_pas_reelle: int, nb_pas_imaginaire: int):
+#         """Crée une instance de Mandelbrot qui possède les mêmes nombres de
+#         subdivisions que `self`, mais centrée sur
+#         z = self.bas_gauche + nb_pas_reelle * self.pas_reelle
+#                             + i * nb_pas_imaginaire * self.pas_imaginaire
+#         et avec les attribut pas_reelle et pas_imaginaires égaux à ceux de
+#         self divisés par coefficient.
+#         Précondition : coeffcient > 0
+#         $$$ ensemble1 = Mandelbrot(Complexe(-2., -1.), Complexe(1., 1.), 7, 5)
+#         $$$ agrand = ensemble1.zoom(2, 4, 2) # on zoome autour de 0 + i*0
+#         $$$ agrand.bas_gauche
+#         Complexe(-0.75, -0.5)
+#         $$$ agrand.haut_droite
+#         Complexe(0.75, 0.5)
+#         """
+#         ...
+# 
