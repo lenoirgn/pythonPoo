@@ -6,7 +6,7 @@
 :date: janvier 2026
 :Fournit : une classe permettant de travailler simplement avec les complexes
 """
-from math import sqrt
+
 class Complexe:
     """Classe permettant de travailler simplement avec des nombres complexes
     """
@@ -90,6 +90,6 @@ class Complexe:
         $$$ Complexe(2.0, -0.5).carre_module()
         4.25
         """
-        return self.reelle**2+self.imaginaire**2
+        return self.reelle**2 + self.imaginaire**2
 
 

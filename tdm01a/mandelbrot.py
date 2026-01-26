@@ -19,7 +19,7 @@ def est_bornee(c: Complexe) -> bool:
     $$$ est_bornee(Complexe(0.0, 0.0))
     True
     $$$ est_bornee(Complexe(1.0, 0.0))
-    False
+    False 
     """
     z_complexe=Complexe(0.,0.)
     for i in range(50):
@@ -29,7 +29,7 @@ def est_bornee(c: Complexe) -> bool:
             return False
     return True
        
-        
+est_bornee( Complexe(-1.0, -1.0))     
 
 class Mandelbrot:
     """Attributs et méthodes permettant de définir une tabulation
@@ -90,12 +90,10 @@ class Mandelbrot:
             ligne=[]
             for n in range(self.nb_subd_reelle):
                 c=Complexe(self.bas_gauche.reelle+(n*self.pas_reel),self.bas_gauche.imaginaire+(p*self.pas_imaginaire))
-                print(c)
                 res=est_bornee(c)
                 ligne.append(res)
             grille.append(ligne)
         return grille
-           
 
 
     def translation(self, nb_pas_reelle: int, nb_pas_imaginaire: int):
@@ -111,6 +109,7 @@ class Mandelbrot:
         $$$ trans.haut_droite
         Complexe(1.5, 0.0)
         """
+
         z=Complexe(nb_pas_reelle * self.pas_reel,nb_pas_imaginaire * self.pas_imaginaire)
         return Mandelbrot(self.bas_gauche+z,self.haut_droite+z,self.nb_subd_reelle,self.nb_subd_imaginaire)
 
