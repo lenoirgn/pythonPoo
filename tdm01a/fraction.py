@@ -17,7 +17,7 @@ from math import lcm, floor, sqrt
 
 class Fraction:
     """
-    a class for rational numbers.
+    a class for rational numeratorbers.
 
     $$$ f1 = Fraction(2, 3)
     $$$ f1.denominator
@@ -35,15 +35,15 @@ class Fraction:
     '2/3'
     """
 
-    def __init__(self, num: int, den: int):
+    def __init__(self, numerator: int, denominator: int):
         """
-        initialize the new fraction num/précondition.
+        initialize the new fraction numerator/précondition.
 
-        den: den != 0
+        denominator: denominator != 0
         """
-        assert den !=0, "denominateur different de 0"
-        self.num = num
-        self.den = den
+        assert denominator !=0, "denominator different de 0"
+        self.numerator = numerator
+        self.denominator = denominator
         
 
     def __str__(self) -> str:
@@ -56,13 +56,13 @@ class Fraction:
         $$$ str(Fraction(22, 7))
         '22/7'
         """
-        return f"{self.num}/{self.den}"
+        return f"{self.numerator}/{self.denominator}"
 
     def repr(self) -> str:
         """
         return a litteral representation of this object.
         """
-        return f"Fraction({self.num},{self.den})"
+        return f"Fraction({self.numerator},{self.denominator})"
 
     def __eq__(self, other) -> bool:
         """
@@ -76,7 +76,7 @@ class Fraction:
         $$$ Fraction(2, 7) == Fraction(5, 21)
         False
         """
-        return self.num*other.den == self.den*other.num
+        return self.numerator*other.denominator == self.denominator*other.numerator
 
     def __add__(self, other) -> Self:
         """
@@ -88,9 +88,9 @@ class Fraction:
         $$$ Fraction(1, 2) + Fraction(1, 3) == Fraction(5, 6)
         True
         """
-        res_den=lcm(self.den,other.den)
-        res_num=self.num*(res_den//self.den)+other.num*(res_den//other.den)
-        return Fraction(res_num,res_den)
+        res_denominator=lcm(self.denominator,other.denominator)
+        res_numerator=self.numerator*(res_denominator//self.denominator)+other.numerator*(res_denominator//other.denominator)
+        return Fraction(res_numerator,res_denominator)
 
     def inverse(self) -> Self:
         """Return inverse of a fraction.
@@ -103,7 +103,7 @@ class Fraction:
         $$$ Fraction(21, 15).inverse()
         Fraction(5, 7)
         """
-        return Fraction(self.den,self.num)
+        return Fraction(self.denominator,self.numerator)
 
     def __truediv__(self, other) -> Self:
         """Return divisions of two fractions.
@@ -113,9 +113,9 @@ class Fraction:
         exemples :
         """
         assert other!=0,"le diviseur doit etre different de 0"
-        inverse=inverse(other)
+        inverse_other=other.inverse()
 
-        return self*inverse
+        return self*inverse_other
     def __mul__(self, other):
         """
         return a fraction representing self * other.
@@ -126,7 +126,7 @@ class Fraction:
         $$$ Fraction(1, 2) * Fraction(1, 3) == Fraction(1, 6)
         True
         """
-        return Fraction(self.num*other.num,self.den*other.den)
+        return Fraction(self.numerator*other.numerator,self.denominator*other.denominator)
 
     def __neg__(self):
         """
@@ -139,9 +139,9 @@ class Fraction:
         $$$ -Fraction(2, 7) == Fraction(-2, 7)
         True
         """
-        if self.den > 0:
-            return Fraction(-self.num, self.den)
-        return Fraction(self.num, -self.den)
+        if self.denominator > 0:
+            return Fraction(-self.numerator, self.denominator)
+        return Fraction(self.numerator, -self.denominator)
 
     def __sub__(self, other):
         """
@@ -159,7 +159,7 @@ class Fraction:
         """
         return the litteral expression of self.
         """
-        return f"Fraction({self.num},{self.den})"
+        return f"Fraction({self.numerator},{self.denominator})"
 
     def to_float(self) -> float:
         """
@@ -176,7 +176,7 @@ class Fraction:
         $$$ Fraction(1, 6).to_float()
         approx(0.1667, 4)
         """
-        return self.num/self.den
+        return self.numerator/self.denominator
 
 
 def racine_entiere(a: int) -> int:
@@ -216,12 +216,15 @@ def heron(a: int, p: int) -> Fraction:
     $$$ heron(2, 5)
     Fraction(886731088897, 627013566048)
     """
-    res=Fraction(0,0)
+    if a==0:
+        return Fraction(0,1)
+    res=Fraction(1,1)
     
     for i in range(p):
-        num=Fraction(racine_entiere(a),1)+Fraction(a,racine_entiere(a))
-        den=Fraction(1,2)
-        res+=Fraction(num,den)
+        numerator=Fraction(racine_entiere(a),1)+Fraction(a,racine_entiere(a))
+        denominator=Fraction(1,2)
+        res=numerator/denominator
+        
     return res
 
 

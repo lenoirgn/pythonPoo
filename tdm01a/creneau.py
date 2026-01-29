@@ -11,6 +11,7 @@ from typing import Self
 from date import Date
 from salle import Salle
 from ue import Ue
+from heure import Heure
 
 
 class Creneau:
