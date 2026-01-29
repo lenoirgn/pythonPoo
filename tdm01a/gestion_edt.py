@@ -25,9 +25,12 @@ def recherche_etudiant(nip: int, etudiants: list[Etudiant]) -> Etudiant | None:
 
 def emploi_du_temps(nip: int, etudiants: list[Etudiant], creneaux: list[Creneau]) -> list[Creneau]:
     """Renvoie la liste des créneaux pour un étudiant."""
-    etudiant =recherche_etudiant(nip, etudiants):
+    etudiant = recherche_etudiant(nip,etudiants)
     liste_creneaux = []
     for creneau in creneaux:
+        if creneau.ue==etudiant.ue:
+            liste_creneaux.append(creneau)
+    return liste_creneaux
 
 
 
@@ -36,5 +39,13 @@ def emploi_du_temps(nip: int, etudiants: list[Etudiant], creneaux: list[Creneau]
 def presents(cren: Creneau, etudiants: list[Etudiant]) -> list[Etudiant]:
     """Renvoie la liste des étudiants devant assister au créneau.
     """
-    ...
+    liste_presents = []
+    for etudiant in etudiants:
+        liste_creneaux_etudiant=emploi_du_temps(etudiant.nip,etudiants,liste_creneaux)
+        if cren in liste_creneaux_etudiant:
+            liste_presents.append(etudiant)
+    return liste_presents
+
+
+
 
