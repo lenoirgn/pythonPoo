@@ -218,14 +218,12 @@ def heron(a: int, p: int) -> Fraction:
     """
     if a==0:
         return Fraction(0,1)
-    res=Fraction(1,1)
+    x=Fraction(1,1)
     
-    for i in range(p):
-        numerator=Fraction(racine_entiere(a),1)+Fraction(a,racine_entiere(a))
-        denominator=Fraction(1,2)
-        res=numerator/denominator
+    for _ in range(p):
+        x=(x+Fraction(a,1)/x)/Fraction(1,2)
         
-    return res
+    return x
 
 
 if __name__ == '__main__':

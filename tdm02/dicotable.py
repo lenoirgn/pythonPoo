@@ -39,7 +39,7 @@ class DicoTable:
         [None] * 10
         """
         self.n=n
-        self.table = [Association] * n
+        self.table = [Association * n
 
     def __eq__(self, autre) -> bool:
         """Renvoie True ssi les dictionnaires sont égaux.
@@ -198,7 +198,9 @@ class DicoTable:
         $$$ all(c in d for c in "abc")
         True
         """
-        nouveau_dic=
+
+
+
 
 
 if __name__ == '__main__':
