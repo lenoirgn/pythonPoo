@@ -49,7 +49,7 @@ def en_palindrome(mot: str) -> tuple[int, str]:
     elif  mot[0] == mot[-1]:
         n, pal = en_palindrome(mot[1:-1])
         return (n, mot[0] + pal + mot[-1])
-        return (0,mot)
+        
     else:
         # ajout au Debut
         n1, pal1 = en_palindrome(mot[1:])
