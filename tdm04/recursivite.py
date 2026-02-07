@@ -136,7 +136,7 @@ def poids_binaire_recursif(naturel: int) -> int:
         return 0
     return (naturel%2) +poids_binaire_recursif(naturel//2)
         
-print(poids_binaire_recursif(17))   
+  
 
 def puissance(x: int|float, n: int) -> int|float:
     """
@@ -154,7 +154,9 @@ def puissance(x: int|float, n: int) -> int|float:
     $$$ puissance(2, 10)
     1024
     """
-    ...
+    if n==0:
+        return 1
+    return x * puissance(x,n-1)
 
 def puissance_v2(x: int|float, n: int) -> int|float:
     """
@@ -170,7 +172,13 @@ def puissance_v2(x: int|float, n: int) -> int|float:
     $$$ puissance_v2(2,10)
     1024
     """
-    ...
+    temp=puissance(x,n//2)
+    if n==0:
+        return 1
+    elif n%2==0:
+        return fois(temp,temp)
+    else:
+        return fois(x,puissance(x,n-1))
 
 @count
 def fois(x: int|float, y: int|float) -> int|float:
@@ -243,7 +251,14 @@ def puissance_calbuth_v2(x: int|float, n: int) -> int|float:
     1024
 
     """
-    ...
+    if n==0:
+        return 1
+    elif n==1:
+        return x
+    else:
+        k=n//2
+        return fois(puissance(x,k),puissance(x,n-k))
+    
 
 
 def puissance_calbuth_v2_amelioree(x: int|float, n: int) -> int|float:
@@ -263,7 +278,17 @@ def puissance_calbuth_v2_amelioree(x: int|float, n: int) -> int|float:
     1024
 
     """
-    ...
+    if n==0:
+        return 1
+    elif n==1:
+        return x
+    else:
+        k=n//2
+        if k==n-k:
+            return puissance(puissance(x,k),2)
+            
+        return fois(puissance(x,k),puissance(x,n-k))
+    
 
 def puissance_erronee(x: int|float, n: int) -> int|float:
     """
@@ -278,7 +303,7 @@ def puissance_erronee(x: int|float, n: int) -> int|float:
     1
     $$$ puissance_erronee(10, 1)
     10
-    $$$ #$$$ puissance_erronee(2, 10)
+    $$$ #puissance_erronee(2, 10)
     $$$ #1024
     """
     if n == 0:
@@ -306,5 +331,12 @@ def puissance_reparee(x: int|float, n: int) -> int|float:
     $$$ puissance_reparee(2,10)
     1024
     """
-    ...
-
+    if n == 0:
+        return 1
+    elif n == 1:
+        return x
+    else:
+        r = n % 2
+        q = n // 2
+        return fois( puissance_reparee(x, r) , fois(puissance_reparee(x, q),puissance_reparee(x, q)))
+       
