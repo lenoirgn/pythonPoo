@@ -261,6 +261,7 @@ def puissance_calbuth_v2(x: int|float, n: int) -> int|float:
     
 
 
+#@trace
 def puissance_calbuth_v2_amelioree(x: int|float, n: int) -> int|float:
     """
     calcule  x élevé à la puissance n
