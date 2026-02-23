@@ -7,7 +7,7 @@
 :author: `FIL - Faculté des Sciences et Technologies - 
           Univ. Lille <http://portail.fil.univ-lille1.fr>`_
 
-:date: 2024 février
+:date: 2026 février
 
 """
 from dicotrie import DicoTrie
@@ -15,7 +15,7 @@ from association import Association
 from types import NoneType
 from timeit import timeit
 from random import randrange
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 
 def generation_dict(tailles: list[int]) -> list[dict[str, NoneType]]:
@@ -27,8 +27,17 @@ def generation_dict(tailles: list[int]) -> list[dict[str, NoneType]]:
 
     $$$ generation_dict([0, 2, 4])
     [{}, {'0': None, '1':None}, {'0': None, '1': None, '2': None, '3': None}]
+    $$$ generation_dict([0])
+    [{}]
     """
-    ...
+    lres=[]
+    for elt in tailles:
+        dico={}
+        for i in range(elt):
+            dico[str(i)]=None  
+        lres.append(dico)
+    return lres
+    
 
 
 def generation_dicotrie(tailles: list[int]) -> list[DicoTrie]:
@@ -41,9 +50,18 @@ def generation_dicotrie(tailles: list[int]) -> list[DicoTrie]:
     $$$ generation_dicotrie([0, 2])
     [DicoTrie([]), DicoTrie([Association('0', None), Association('1', None)])]
     """
-    ...
-
-
+    lres=[]
+    for elt in tailles:
+        if elt==0:
+            lres.append(DicoTrie([]))
+        else:
+            liste_dico=[]
+            for i in range(elt):
+                liste_dico.append(Association(str(i),None))
+                
+            lres.append(DicoTrie(liste_dico))
+    return lres
+ 
 def mesure_temps_acces(taille : int, d: dict[str, NoneType] | DicoTrie) -> float:
     """Renvoie le temps moyen mis pour accéder à 1000 éléments quelconques
     du dictionnaire d.
@@ -64,7 +82,11 @@ def mesures_temps_acces_dict(tailles: list[int]) -> list[float]:
     
     Précondition : tous les entiers de tailles sont positifs ou nuls
     """
-    ...
+    liste_dico=generation_dict(tailles)
+    liste_moy=[]
+    for i in range(len(tailles)):
+        liste_moy.append(mesure_temps_acces(tailles[i],liste_dico[i]))
+    return liste_moy
 
 
 def mesures_temps_acces_dicotrie(tailles: list[int]) -> list[float]:
@@ -75,12 +97,27 @@ def mesures_temps_acces_dicotrie(tailles: list[int]) -> list[float]:
     
     Précondition : tous les entiers de tailles sont positifs ou nuls
     """
-    ...
-
+    liste_dico=generation_dicotrie(tailles)
+    liste_moy=[]
+    for i in range(len(tailles)):
+        liste_moy.append(mesure_temps_acces(tailles[i],liste_dico[i]))
+    return liste_moy
+print(mesures_temps_acces_dicotrie([i for i in range(1,100)]))
+    
 
 if __name__ == '__main__':
     import apl1test
     apl1test.testmod('mesures.py')
+    
+    lmesure_temps_acces_dict=mesures_temps_acces_dict([1,3,4,6])
+    lmesures_temps_acces_dicotrie=mesures_temps_acces_dicotrie([1,3,4,6])
+    
+    abcisse=[i for i in range(1000)]
+    plt.plot(abscisses, lmesure_temps_acces_dict, color='blue')
+    plt.show()
+
+    
+    
 
     # Écrivez ici le code permettant de faire des hypothèses sur la
     # vitesse d'accès aux dictionnaires.

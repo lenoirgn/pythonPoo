@@ -136,7 +136,7 @@ class DicoTable:
 
         for asso in self.table:
             if asso.cle == cle:
-                return asso
+                return asso.valeur
         raise KeyError ("la clé n'a pas été trouvée")
 
     def __delitem__(self, cle: C) -> NoneType:

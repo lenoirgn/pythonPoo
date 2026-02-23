@@ -7,7 +7,7 @@
 :author: `FIL - Faculté des Sciences et Technologies - 
           Univ. Lille <http://portail.fil.univ-lille1.fr>`_
 
-:date: 2024 février
+:date: 2026 février
 
 """
 from ap_decorators import count
@@ -47,11 +47,7 @@ class Association:
         $$$ repr(Association(1+1 == 2, "Vrai")) 
         "Association(True, 'Vrai')"
         """
-        if type(self.cle)==str:
-            return f"Association('{self.cle}', {self.valeur})"
-        elif type(self.valeur)==str:
-            return f"Association({self.cle}, '{self.valeur}')"    
-        return f"Association({self.cle}, {self.valeur})"
+        return f"Association({repr(self.cle)}, {repr(self.valeur)})"
         
 
     def __eq__(self, autre) -> bool:
@@ -84,9 +80,9 @@ def comp_asso(a1: Association, a2: Association) -> int:
     $$$ comp_asso(Association(1, 'd'), Association(0, 'c'))
     1
     """
-    if a1.cle-a2.cle<0:
+    if a1.cle<a2.cle:
         return -1
-    elif a1.cle-a2.cle>0:
+    elif a1.cle>a2.cle:
         return 1
     else:
         return 0
