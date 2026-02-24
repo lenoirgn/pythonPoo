@@ -15,7 +15,7 @@ from association import Association
 from types import NoneType
 from timeit import timeit
 from random import randrange
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 
 
 def generation_dict(tailles: list[int]) -> list[dict[str, NoneType]]:
@@ -106,14 +106,14 @@ print(mesures_temps_acces_dicotrie([i for i in range(1,100)]))
     
 
 if __name__ == '__main__':
-    import apl1test
-    apl1test.testmod('mesures.py')
+#     import apl1test
+#     apl1test.testmod('mesures.py')
     
     lmesure_temps_acces_dict=mesures_temps_acces_dict([1,3,4,6])
     lmesures_temps_acces_dicotrie=mesures_temps_acces_dicotrie([1,3,4,6])
     
-    abcisse=[i for i in range(1000)]
-    plt.plot(abscisses, lmesure_temps_acces_dict, color='blue')
+    abcisse=[i for i in range(4)]
+    plt.plot(abcisse, lmesure_temps_acces_dict, color='blue')
     plt.show()
 
     
