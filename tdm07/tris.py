@@ -77,6 +77,25 @@ def tri_select(liste: list[T], comp: Callable[[T, T], int] = compare) -> NoneTyp
         
 
     # à l'issue de l'itération la tranche liste[0:n] est triée
+    ## Recursive
+def tri_selec_rec(liste: list[T], comp: Callable[[T, T], int] = compare) -> NoneType:
+    """ 
+
+    Précondition : 
+    Exemple(s) :
+    $$$ liste = [3, 1, 4, 1, 5, 9, 2]
+    $$$ tri_selec_rec(liste)
+    $$$ liste == [1, 1, 2, 3, 4, 5, 9]
+    True 
+    """
+    if len(liste)==1:
+        return liste
+    else:
+        imin=select_min(liste,0,len(liste),comp)
+        echanger(liste,imin,0)
+        print(liste)
+        return [liste[imin]]+tri_selec_rec(liste[1:],comp)
+    
 
 ################################################
 #  TRI PAR INSERTION                           #
