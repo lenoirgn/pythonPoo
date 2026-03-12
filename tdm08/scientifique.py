@@ -81,7 +81,47 @@ class Scientifique:
                         if self.mort==other.mort:
                             if self.activite==other.activite:
                                 return True
-        return False 
+        return False
+    def comparaison_nom(self, other:"Scientifique")->int:
+        """ 
+        Précondition : 
+        Exemple(s) :
+        $$$ 
+        """
+        if isinstance(other,Scientifique):
+            if self.nom>other.nom:
+                return 1
+            elif self.nom<other.nom:
+                return -1
+            else:
+                return 1
+    def comparaison_naissance(self, other:"Scientifique")->int:
+        """ 
+        Précondition : 
+        Exemple(s) :
+        $$$ 
+        """
+        if isinstance(other,Scientifique):
+            if self.naissance>other.naissance:
+                return 1
+            elif self.naissance<other.naissance:
+                return -1
+            else:
+                return 1
+    def comparaison_activite(self, other:"Scientifique")->int:
+        """ 
+        Précondition : 
+        Exemple(s) :
+        $$$ 
+        """
+        if isinstance(other,Scientifique):
+            if self.activite>other.activite:
+                return 1
+            elif self.activite<other.activite:
+                return -1
+            else:
+                return 1
+        
 
 
             
