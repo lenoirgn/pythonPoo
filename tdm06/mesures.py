@@ -57,8 +57,7 @@ def generation_dicotrie(tailles: list[int]) -> list[DicoTrie]:
         else:
             liste_dico=[]
             for i in range(elt):
-                liste_dico.append(Association(str(i),None))
-                
+                liste_dico.append(Association(str(i),None))   
             lres.append(DicoTrie(liste_dico))
     return lres
  
@@ -102,10 +101,11 @@ def mesures_temps_acces_dicotrie(tailles: list[int]) -> list[float]:
     for i in range(len(tailles)):
         liste_moy.append(mesure_temps_acces(tailles[i],liste_dico[i]))
     return liste_moy
-print(mesures_temps_acces_dicotrie([i for i in range(1,100)]))
+#print(mesures_temps_acces_dicotrie([i for i in range(1,100)]))
     
 
 if __name__ == '__main__':
+
 #     import apl1test
 #     apl1test.testmod('mesures.py')
     
@@ -116,25 +116,26 @@ if __name__ == '__main__':
     plt.plot(abcisse, lmesure_temps_acces_dict, color='blue')
     plt.show()
 
-    
-    
-
+    #import apl1test
+    #apl1test.testmod('mesures.py')
+  
     # Écrivez ici le code permettant de faire des hypothèses sur la
     # vitesse d'accès aux dictionnaires.
 
     # linéaire
-    # tailles = list(range(0, 100000, 1000)
-    # temps_dict = mesures_temps_acces_dict(tailles)
-    # temps_dicotrie = mesures_temps_acces_dicotrie(tailles)
-    # plt.plot(tailles, temps_dict, '+')
-    # plt.plot(tailles, temps_dicotrie, '.')
-    # plt.show()
+     #tailles = list(range(0, 100000,1000))
+#      temps_dict = mesures_temps_acces_dict(tailles)
+#      temps_dicotrie = mesures_temps_acces_dicotrie(tailles)
+#      plt.plot(tailles, temps_dict, '+')
+#      plt.plot(tailles, temps_dicotrie, '.')
+#      plt.show()
     # log
-    # tailles = [2**n for n in range(16)]
-    # temps_dict = mesures_temps_acces_dict(tailles)
-    # temps_dicotrie = mesures_temps_acces_dicotrie(tailles)
-    # plt.plot(range(16), temps_dict, '+')
-    # plt.plot(range(16), temps_dicotrie, '.')
-    # plt.show()
-    
+     tailles = [2**n for n in range(16)]
+     temps_dict = mesures_temps_acces_dict(tailles)
+     temps_dicotrie = mesures_temps_acces_dicotrie(tailles)
+     print(temps_dicotrie)
+#      plt.plot(range(16), temps_dict, '+')
+#      plt.plot(range(16), temps_dicotrie, '.')
+#      plt.show()
+#     
 
