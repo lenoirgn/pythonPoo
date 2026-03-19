@@ -93,7 +93,6 @@ def tri_selec_rec(liste: list[T],a:int,b:int=None, comp: Callable[[T, T], int] =
     else:
         imin=select_min(liste,a,b,comp)
         echanger(liste,imin,a)
-        print(liste)
         tri_selec_rec(liste,a+1,b,comp)
         
     
