@@ -35,7 +35,15 @@ def compare(a: T, b: T) -> int:
     $$$ compare((2, 1), (1, 2))
     1
     """
-    ...
+    if type(a)==type(b):
+        if a<b:
+            return -1
+        elif a>b:
+            return 1
+        else:
+            return 0
+        
+        
 
 
 def length(li: ApLst) -> int:
@@ -51,8 +59,12 @@ def length(li: ApLst) -> int:
     $$$ length(ApLst(3, ApLst(1, ApLst(4, ApLst()))))
     3
     """
-    ...
-
+    temp=li
+    comp=0
+    while not temp.is_empty():
+        comp+=1
+        temp=temp.tail()
+    return comp
 
 def native_to_list(li: list[T]) -> ApLst:
     """
@@ -76,9 +88,12 @@ def native_to_list(li: list[T]) -> ApLst:
     $$$ l.head()
     4
     """
-    ...
-
-
+    temp=li[::-1]
+    res=ApLst()
+    for el in temp:
+        res=ApLst(el,res)
+    return res
+    
 def list_to_native(li: ApLst) -> list[T]:
     """
     return a native python list containing the same element of li.
@@ -92,7 +107,13 @@ def list_to_native(li: ApLst) -> list[T]:
     $$$ list_to_native(ApLst(3, ApLst(1, ApLst(4, ApLst(1, ApLst(5, ApLst()))))))
     [3, 1, 4, 1, 5]
     """
-    ...
+    res = []
+    temp=li
+    while not temp.is_empty():
+        res.append(temp.head())
+        temp=temp.tail()
+    return res
+    
 
 
 def is_sorted(l: ApLst, comp: Callable[[T, T], int]=compare) -> bool:
@@ -108,7 +129,17 @@ def is_sorted(l: ApLst, comp: Callable[[T, T], int]=compare) -> bool:
     $$$ is_sorted(native_to_list([1, 2, 4, 3]))
     False
     """
-    ...
+    temp=l
+    tete=temp.head()
+    trouve=True
+    while not temp.is_empty() and trouve:
+        temp=temp.tail()
+        if  not temp.is_empty():
+            if tete>temp.head():
+                trouve=False
+            tete=temp.head()
+    return trouve
+            
 
 
 def split(l: ApLst) -> tuple[ApLst, ApLst]:
@@ -127,7 +158,10 @@ def split(l: ApLst) -> tuple[ApLst, ApLst]:
     $$$ all(k in l for k in l3)
     True
     """
-    ...
+    temp=l
+    temp=list_to_native(temp)
+    l1,l2= native_to_list(temp[:len(temp)//2]),native_to_list(temp[len(temp)//2:])
+    return (l1,l2)
 
 
 def merge(l1: ApLst, l2: ApLst,
@@ -142,7 +176,8 @@ def merge(l1: ApLst, l2: ApLst,
     $$$ list_to_native(merge(native_to_list([1, 3, 4, 9]), native_to_list([1, 2, 5])))
     [1, 1, 2, 3, 4, 5, 9]
     """
-    ...
+    
+    
 
 
 def mergesort(l: ApLst, comp: Callable[[T, T], int]=compare) -> ApLst:

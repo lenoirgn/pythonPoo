@@ -94,12 +94,21 @@ def double(nombres: ApLst) -> ApLst:
     $$$ double(ApLst(3, ApLst(1, ApLst(4, ApLst()))))
     ApLst(6, ApLst(2, ApLst(8, ApLst())))
     """
-    res=ApLst()
-    temp=nombres
-    while not temp.is_empty():
-        res=ApLst(temp.head()*2,res)
-        temp=temp.tail() 
-    return res
+    if nombres.is_empty():
+        return ApLst()
+    return ApLst(nombres.head() * 2, double(nombres.tail()))
+
+#     res=ApLst()
+#     temp=nombres
+#     l=[]
+#     while not temp.is_empty():
+#         l.append(temp.head())
+#         temp=temp.tail()
+#     print(l)
+#     l=l[::-1]
+#     for ele in l:
+#         res=ApLst(ele*2,res)
+#     return res
 
 def que_les_pairs(nombres: ApLst) -> ApLst:
     """Renvoie la liste des éléments pairs de `nombres`
@@ -107,7 +116,15 @@ def que_les_pairs(nombres: ApLst) -> ApLst:
     $$$ que_les_pairs(ApLst(3, ApLst(1, ApLst(4, ApLst()))))
     ApLst(4, ApLst())
     """
-    ...
+    res =ApLst()
+    temp=nombres
+    while not temp.is_empty() :
+        tete=temp.head()
+        if  tete%2==0:
+            res=ApLst(tete,res)
+        temp=temp.tail()   
+    return res
+    
 
 def minimum(liste: ApLst) -> A:
     """Renvoie le plus petit élément de `liste`
@@ -115,8 +132,18 @@ def minimum(liste: ApLst) -> A:
     $$$ minimum(ApLst(3, ApLst(1, ApLst(4, ApLst()))))
     1
     """
-    ...
+    temp = liste
+    res = temp.head()
+    while not temp.is_empty():
+        temp = temp.tail()
+        if not temp.is_empty():
+            tete = temp.head()
+            if res > tete:
+                res = tete
 
+    return res
+           
+    
 def pour_tous(liste: ApLst, p: Callable[[A], bool]) -> bool:
     """Renvoie `True` si tous éléments de `liste` vérifient le prédicat `p`
     et `False` sinon.
@@ -132,7 +159,15 @@ def pour_tous(liste: ApLst, p: Callable[[A], bool]) -> bool:
     $$$ pour_tous(ApLst(), est_une_licorne)
     True
     """
-    ...
+    temp = liste
+    res = True
+    while not temp.is_empty() and res :
+        if not p(temp.head()):
+            res=False
+        temp=temp.tail()
+
+    return res
+    
 
 def il_existe(liste: ApLst, p: Callable[[A], bool]) -> bool:
     """Renvoie `True` si au moins un élément de `liste` vérifie le prédicat `p`
@@ -149,7 +184,15 @@ def il_existe(liste: ApLst, p: Callable[[A], bool]) -> bool:
     $$$ il_existe(ApLst(), aime_les_tris)
     False
     """
-    ...
+    temp = liste
+    res = False
+    while not temp.is_empty() and not res :
+        if  p(temp.head()):
+            res=True
+        temp=temp.tail()
+
+    return res
+    
 
 def filtre(liste: ApLst, p: Callable[[A], bool]) -> ApLst:
     """Renvoie la liste des éléments de `liste` vérifiant le prédicat `p`
@@ -159,9 +202,25 @@ def filtre(liste: ApLst, p: Callable[[A], bool]) -> ApLst:
     $$$ filtre(ApLst(3, ApLst(1, ApLst(4, ApLst()))), est_superieur_a_2)
     ApLst(3, ApLst(4, ApLst()))
     $$$ def est_pair(n: int) -> bool: return n % 2 == 0
-    $$$ filtre(ApLst(3, ApLst(1, ApLst(4, ApLst()))), est_superieur_a_2)
+    $$$ filtre(ApLst(3, ApLst(1, ApLst(4, ApLst()))), est_pair)
+    ApLst(4, ApLst())
     """
-    ...
+    temp = liste
+    res = ApLst()
+    l=[]
+    while not temp.is_empty() :
+        tete=temp.head()
+        if  p(tete):
+            l.append(tete)
+        temp=temp.tail()
+    l=l[::-1]
+    for el in l:
+        res=ApLst(el, res)
+        
+    return res
+    
+    
+    
 
 def reduction(liste: ApLst, f: Callable[[A, A], A]) -> A:
     """Renvoie la *réduction* de `liste` par `f`.
@@ -174,12 +233,19 @@ def reduction(liste: ApLst, f: Callable[[A, A], A]) -> A:
     1
     $$$ def add(x, y): return x + y
     $$$ reduction(ApLst(3, ApLst(1, ApLst(4, ApLst()))), add)
-    8
+    8 
     $$$ def base10(unite, dizaines): return unite + 10*dizaines
     $$$ reduction(ApLst(3, ApLst(1, ApLst(4, ApLst()))), base10)
-    413
+    53
     """
-    ...
+    res = liste.head()
+    temp = liste.tail()
+    while not temp.is_empty():
+        res = f(res, temp.head())
+        temp = temp.tail()
+
+    return res
+   
 
 def applications_successives(x: A, f: Callable[[A], A], n: int) -> ApLst:
     """Renvoie la liste des applications successives de `f` sur `x`
@@ -191,5 +257,15 @@ def applications_successives(x: A, f: Callable[[A], A], n: int) -> ApLst:
     $$$ applications_successives(1, double, 5)
     ApLst(1, ApLst(2, ApLst(4, ApLst(8, ApLst(16, ApLst(32, ApLst()))))))
     """
-    ...
+    res = ApLst()
+    l=[x]
+    for i in range(n):
+        l.append(f(l[i]))
+    l=l[::-1]
+    for el in l:
+        res=ApLst(el,res)
+    return res
+        
+        
+        
 
