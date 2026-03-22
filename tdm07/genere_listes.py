@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from typing import Callable
-from compare import *
+from .compare import *
 
 
 def genere_lint_croissante(n:int)->list[int]:

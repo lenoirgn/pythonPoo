@@ -14,6 +14,9 @@ Some recursive sorting algorithms:
 """
 from typing import Callable, TypeVar
 from aplst import ApLst
+from tdm07.annexe_tris import *
+from tdm07.tris import *
+
 
 
 T = TypeVar('T')
@@ -176,10 +179,12 @@ def merge(l1: ApLst, l2: ApLst,
     $$$ list_to_native(merge(native_to_list([1, 3, 4, 9]), native_to_list([1, 2, 5])))
     [1, 1, 2, 3, 4, 5, 9]
     """
-    
-    
-
-
+    li1= list_to_native(l1)
+    li2= list_to_native(l2)
+    lif= li1+li2
+    tri_select(lif,compare)
+    return native_to_list(lif)
+  
 def mergesort(l: ApLst, comp: Callable[[T, T], int]=compare) -> ApLst:
     """
     return a new list containing elements of l sorted by ascending order.
@@ -198,7 +203,12 @@ def mergesort(l: ApLst, comp: Callable[[T, T], int]=compare) -> ApLst:
     $$$ is_sorted(l1)
     True
     """
-    ...
+    temp=list_to_native(l)
+    tri_select(temp,compare)
+    return native_to_list(temp)
+    
+    
+    
 
 
 if (__name__ == '__main__'):

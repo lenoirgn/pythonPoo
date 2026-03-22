@@ -16,8 +16,8 @@ Tris de listes
 
 from types import NoneType
 from typing import Callable, TypeVar
-from annexe_tris import *
-from genere_listes import genere_lint_croissante
+from .annexe_tris import *
+from .genere_listes import genere_lint_croissante
 from random import shuffle
 T = TypeVar('T')
 
