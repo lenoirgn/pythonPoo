@@ -37,7 +37,13 @@ def distribute(n_card: int) -> tuple[ApQueue, ApQueue]:
     $$$ isinstance(carte, Card)
     True
     """
-    ...
+    m1=ApQueue()
+    m2=ApQueue()
+    liste1=Card.deck(n_card)
+    liste2=Card.deck(n_card)
+    [m1.enqueue(el) for el in liste1]
+    [m2.enqueue(el) for el in liste2]
+    return (m1,m2)
 
 def gather_stack(main: ApQueue, pile: ApStack) -> None:
     """
@@ -55,7 +61,10 @@ def gather_stack(main: ApQueue, pile: ApStack) -> None:
     $$$ all( main.dequeue() == cartes[ 3 - i ] for i in range(3))
     True
     """
-    ...
+    while not pile.is_empty():
+        main.enqueue(pile.pop())
+ 
+    
 
 def play_one_round(m1: ApQueue, m2: ApQueue, pile: ApStack) -> None:
     """
@@ -72,7 +81,16 @@ def play_one_round(m1: ApQueue, m2: ApQueue, pile: ApStack) -> None:
 
     precondition : m1 et m2 ne sont pas vides
     """
-    ...
+    carte1=m1.dequeue()
+    carte2=m2.dequeue()
+    if carte1.compare(carte2)==1:
+        gather_stack(m1,pile)
+    elif carte1.compare(carte2)==-1:
+       gather_stack(m2,pile)
+    else:
+        pile.push(carte1)
+        pile.push(carte2)
+    
 
 def play(n_card: int, n_round: int) -> None:
     """
@@ -81,7 +99,11 @@ def play(n_card: int, n_round: int) -> None:
     n_card: le nombre de cartes à distribuer à chaque joueur.
     n_round: le nombre maximal de tours
     """
-    ...
+    main1,main2=distribute(n_card)
+    pile=ApStack()
+    for _ in range(n_round):
+        play_one_round(main1,main2,pile)
+        
 
 
 if __name__ == "__main__":
