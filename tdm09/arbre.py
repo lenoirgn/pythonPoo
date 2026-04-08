@@ -206,3 +206,48 @@ def etiquettes(arbre: Arbre) ->ApLst:
         return ApLst()
     else:
         return concat(etiquettes(arbre.gauche()), ApLst(arbre.etiquette(), etiquettes(arbre.droit())))
+
+
+def nb_feuilles(arbre: Arbre) ->int:
+    if arbre.is_empty():
+        return 0
+    elif  arbre.gauche().is_empty() and arbre.droit().is_empty():
+        return 1
+    else:
+        return nb_feuilles(arbre.gauche())+nb_feuilles(arbre.droit())
+
+def est_feuilles(arbre: Arbre) ->bool:
+    if not arbre.is_empty():
+        return arbre.gauche().is_empty() and arbre.droit().is_empty()
+
+def nb_profondeur(arbre: Arbre, p: int) -> int:
+    if arbre.is_empty():
+        return 0
+    if p == 0:
+        return 1
+    return nb_profondeur(arbre.gauche(), p-1) + nb_profondeur(arbre.droit(), p-1)
+
+def somme_etiquettes(arbre: Arbre) -> int:
+    if arbre.is_empty():
+        return 0
+    else:
+        return arbre.etiquette()+somme_etiquettes(arbre.gauche())+somme_etiquettes(arbre.droit())
+
+def max_etiquettes(arbre: Arbre) -> int:
+    if arbre.is_empty():
+        return 0
+    else:
+        temp = arbre.etiquette()
+        g=max_etiquettes(arbre.gauche())
+        d=max_etiquettes(arbre.droit())
+    return max(temp,max(g,d))
+
+def nb_occurences(arbre: Arbre,et:int) -> int:
+    if arbre.is_empty():
+        return 0
+    elif arbre.etiquette()==et:
+        return 1 + nb_occurences(arbre.gauche(), et)+nb_occurences(arbre.droit(), et)
+    else:
+        return nb_occurences(arbre.gauche(), et)+nb_occurences(arbre.droit(), et)
+
+print(nb_occurences(Arbre(10, Arbre(10, Arbre(1, Arbre(10, Arbre(), Arbre()), Arbre(3, Arbre(), Arbre())), Arbre(7, Arbre(), Arbre(8, Arbre(6, Arbre(), Arbre()), Arbre()))), Arbre(20, Arbre(15, Arbre(13, Arbre(), Arbre()), Arbre(17, Arbre(), Arbre())), Arbre(30, Arbre(), Arbre(1, Arbre(), Arbre())))),10))

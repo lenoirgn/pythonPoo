@@ -101,12 +101,17 @@ def play(n_card: int, n_round: int) -> None:
     """
     main1,main2=distribute(n_card)
     pile=ApStack()
-    for _ in range(n_round):
+    round=0
+    while main1.is_empty() and  main2.is_empty() and round<n_round:
+        print(f"------ Tour {round} --------")
+        print(f"jour 1 joue {main1.dequeue()} et jour 2 joue {main2.dequeue()}")
         play_one_round(main1,main2,pile)
+
         
 
 
 if __name__ == "__main__":
     import l1test
     l1test.testmod("war.py")
+    play(4,10)
 
