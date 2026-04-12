@@ -115,13 +115,13 @@ class Arbre():
     def __str__(self) ->str:
         """renvoie une representation textuelle de self
 
-        Précondition : 
+        Précondition :
         Exemple(s) :
-        $$$ 
+        $$$
         """
         if self.is_empty():
-            return Arbre()
-        return f'Arbre({self.etiquette}, {self.gauche}, {self.droite})'
+            return "Arbre()"
+        return f'Arbre({self.etiquette()}, {self.gauche()}, {self.droit()})'
     
     def __eq__(self, other)->bool:
         """ renvoie True si self = other
@@ -240,7 +240,7 @@ def max_etiquettes(arbre: Arbre) -> int:
         temp = arbre.etiquette()
         g=max_etiquettes(arbre.gauche())
         d=max_etiquettes(arbre.droit())
-    return max(temp,max(g,d))
+        return max(temp,max(g,d))
 
 def nb_occurences(arbre: Arbre,et:int) -> int:
     if arbre.is_empty():
@@ -249,5 +249,91 @@ def nb_occurences(arbre: Arbre,et:int) -> int:
         return 1 + nb_occurences(arbre.gauche(), et)+nb_occurences(arbre.droit(), et)
     else:
         return nb_occurences(arbre.gauche(), et)+nb_occurences(arbre.droit(), et)
+def sont_tous_positifs(arbre: Arbre) -> bool:
+    if arbre.is_empty():
+        return True
+    elif arbre.etiquette()<0:
+        return False
+    else:
+        return sont_tous_positifs(arbre.gauche()) and sont_tous_positifs(arbre.droit())
 
-print(nb_occurences(Arbre(10, Arbre(10, Arbre(1, Arbre(10, Arbre(), Arbre()), Arbre(3, Arbre(), Arbre())), Arbre(7, Arbre(), Arbre(8, Arbre(6, Arbre(), Arbre()), Arbre()))), Arbre(20, Arbre(15, Arbre(13, Arbre(), Arbre()), Arbre(17, Arbre(), Arbre())), Arbre(30, Arbre(), Arbre(1, Arbre(), Arbre())))),10))
+
+def est_localement_complet(arbre: Arbre) -> bool:
+    if arbre.is_empty():
+        return True
+
+    g = arbre.gauche()
+    d = arbre.droit()
+    if (g.is_empty() and not d.is_empty()) or (not g.is_empty() and d.is_empty()):
+        return False
+    return est_localement_complet(g) and est_localement_complet(d)
+
+
+def miroir(arbre: Arbre) -> Arbre:
+    if arbre.is_empty():
+        return Arbre()
+    else:
+        return Arbre(arbre.etiquette(), miroir(arbre.droit()), miroir(arbre.gauche()))
+
+def arbre_applique(arbre: Arbre,f:callable) -> Arbre:
+    if arbre.is_empty():
+        return Arbre()
+    return Arbre(f(arbre.etiquette()), arbre_applique(arbre.gauche(),f), arbre_applique(arbre.droit(),f))
+
+
+def arbre_filtre(arbre: Arbre, f: callable) -> Arbre:
+    if arbre.is_empty():
+        return Arbre()
+
+    et = arbre.etiquette()
+
+    g = arbre.gauche()
+    d = arbre.droit()
+
+    # filtrage gauche
+    if not g.is_empty() and f(g.etiquette()):
+        gf = arbre_filtre(g, f)
+    else:
+        gf = Arbre()
+
+    # filtrage droite
+    if not d.is_empty() and f(d.etiquette()):
+        df = arbre_filtre(d, f)
+    else:
+        df = Arbre()
+
+    return Arbre(et, gf, df)
+
+def zip(arbre1: Arbre, arbre2: Arbre) -> Arbre:
+    if arbre1.is_empty() :
+        return arbre2
+    elif arbre2.is_empty() :
+        return arbre1
+    else:
+        return Arbre((arbre1.etiquette(),arbre2.etiquette()) ,zip(arbre1.gauche(),arbre2.gauche()),zip(arbre1.droit(),arbre2.droit()))
+def parcours_infixe(arbre:Arbre)->str:
+    if arbre.is_empty():
+        return ""
+    return str(parcours_infixe(arbre.gauche()))+" "+str(arbre.etiquette())+" "+str(parcours_infixe(arbre.droit()))
+
+
+def parcours_prefixe(arbre:Arbre) -> str:
+    if arbre.is_empty():
+        return ""
+    else:
+        return
+def parcours_postfixe(arbre:Arbre)->str:
+    if arbre.is_empty():
+        return ""
+    else:
+        return str(parcours_postfixe(arbre.gauche()))+" "+str(parcours_postfixe(arbre.droit())) +" "+ str(arbre.etiquette())
+
+
+eq=A = Arbre("*", Arbre("+", Arbre("1", Arbre(), Arbre()), Arbre("X", Arbre(), Arbre())), Arbre("-", Arbre("Y", Arbre(), Arbre()), Arbre("7", Arbre(), Arbre())))
+m_B=Arbre(1, Arbre(3, Arbre(7, Arbre(), Arbre()), Arbre(6, Arbre(), Arbre())), Arbre(2, Arbre(5, Arbre(), Arbre()), Arbre(4, Arbre(), Arbre())))
+B=Arbre(1, Arbre(2, Arbre(4, Arbre(), Arbre()), Arbre(5, Arbre(), Arbre())), Arbre(3, Arbre(6, Arbre(), Arbre()), Arbre(7, Arbre(), Arbre())))
+A=Arbre(10, Arbre(10, Arbre(1, Arbre(10, Arbre(), Arbre()), Arbre(3, Arbre(), Arbre())), Arbre(7, Arbre(), Arbre(8, Arbre(6, Arbre(), Arbre()), Arbre()))), Arbre(20, Arbre(15, Arbre(13, Arbre(), Arbre()), Arbre(17, Arbre(), Arbre())), Arbre(30, Arbre(), Arbre(1, Arbre(), Arbre()))))
+def f(a:int):
+    return a%2==0
+
+print(parcours_postfixe(eq))
