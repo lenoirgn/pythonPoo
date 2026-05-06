@@ -321,7 +321,7 @@ def parcours_prefixe(arbre:Arbre) -> str:
     if arbre.is_empty():
         return ""
     else:
-        return
+        return str(arbre.etiquette())+" "+ str(parcours_prefixe(arbre.gauche()))+" "+str(parcours_prefixe(arbre.droit())) 
 def parcours_postfixe(arbre:Arbre)->str:
     if arbre.is_empty():
         return ""
